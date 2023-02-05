@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="glavniDiv">
+        <header>
+            <div id="navigacija">
+                <a href="../html/index.html"><img src="../25694.png" id="home" alt="Vracanje na pocetnu stranu"></a>
+            </div>
+        </header>
+
+    <section id="sectTabela">
+        <table id="tabelasasortiranjem">
+            <thead>
+                <tr>
+                    <th onclick="sortirajtabelu(0)">ID musterije</th>
+                    <th onclick="sortirajtabelu(1)">Ime</th>
+                    <th onclick="sortirajtabelu(2)">Prezime</th>
+                    <th onclick="sortirajtabelu(3)">Broj telefona</th>
+                    <th onclick="sortirajtabelu(4)">Drzava</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Nikola</td>
+                    <td>Dragutinovic</td>
+                    <td>060-754-123</td>
+                    <td>Srbija</td>
+                </tr>
+                
+                <tr>
+                    <td>2</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>817-646-8833</td>
+                    <td>Amerika</td>
+                </tr>
+                
+                <tr>
+                    <td>3</td>
+                    <td>Marko</td>
+                    <td>Markovic</td>
+                    <td>064-567-234</td>
+                    <td>Srbija</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>Betty</td>
+                    <td>Taylor</td>
+                    <td>806-749-2958</td>
+                    <td>Britanija</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>Petar</td>
+                    <td>Petrovic</td>
+                    <td>061-321-584</td>
+                    <td>Srbija</td>
+                </tr>
+
+                <tr>
+                    <td>6</td>
+                    <td>David</td>
+                    <td>Robinson</td>
+                    <td>208-340-7906</td>
+                    <td>Britanija</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <script>
+        var kontrolaSmera = 1;
+
+        function sortirajtabelu(idBrojKolone) {
+         var tabela, red, smer, i, j, a, b, sortirajBroj;
+
+    
+        tabela = document.getElementById("tabelasasortiranjem");
+
+        if (kontrolaSmera == 1) {
+            smer = "rastuci";
+        }
+        else if (kontrolaSmera == 0) {
+            smer = "opadajuci";
+        }
+
+        if (idBrojKolone == 3)
+            sortirajBroj = 1;
+        else sortirajBroj = 0;
+
+        console.log('Kontrola smera: ', kontrolaSmera)
+
+         red = tabela.rows;
+
+        for (i = 1; i < (red.length - 1); i++)
+            for (j = i + 1; j < (red.length); j++) {
+
+                a = red[i].getElementsByTagName("TD")[idBrojKolone]; 
+                b = red[j].getElementsByTagName("TD")[idBrojKolone];
+
+
+            if (sortirajBroj == 0) {
+                if (smer == "rastuci") {
+                    if (a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase()) {
+                        red[i].parentNode.insertBefore(red[j], red[i]);
+                    }
+                } else if (smer == "opadajuci") {
+                    if (a.innerHTML.toLowerCase() < b.innerHTML.toLowerCase()) {
+                        red[i].parentNode.insertBefore(red[j], red[i]);
+                    }
+                }
+            } 
+            else if (sortirajBroj == 1) {
+                if (smer == "rastuci") {
+                    if (parseInt(a.innerHTML) > parseInt(b.innerHTML)) {
+                        red[i].parentNode.insertBefore(red[j], red[i]);
+                    }
+                } else if (smer == "opadajuci") {
+                    if (parseInt(a.innerHTML) < parseInt(b.innerHTML)) {
+                        red[i].parentNode.insertBefore(red[j], red[i]);
+                    }
+                }
+
+            }
+        }
+
+    if (kontrolaSmera == 1) {
+        kontrolaSmera = 0;
+    }
+    else if (kontrolaSmera == 0) {
+        kontrolaSmera = 1;
+    }
+        
+}
+    </script>
+</div>
+</body>
+</html>

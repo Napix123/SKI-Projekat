@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="glavniDiv">
+    <header id="slika">
+            <img src="../index.jpg" alt="Samsung reklama">
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../html/audio.html">Muzika</a></li>
+            <li><a href="../html/tabela.html">Tabela</a></li>
+            <li><a href="../html/asocijacije.html">Asocijacije</a></li>
+        </ul>
+    </nav>
+
+    <section id="sectMeni">
+        <div id="glavnaSekcija">
+            <h1>Nikola Dragutinović</h1> 
+            <h3>Nove Racunarske Tehnologije, NRT-79/21</h3>
+            <hr>
+            <p><span>Zavrsena Gimnazija Smederevo, prirodno-matematicki smer<br>
+            Interesovanja: Tehnologija, knjige, muzika, nauka<br>
+            Volim da citam knjige, sviram gitaru i klavir, upoznajem nove ljude u slobodno vreme</span></p>
+        </div>
+    </section>
+
+    <section id="opisZadatka">
+        <h3>Popis zadatka:</h3>
+
+        <ul>
+            <li>header blok koji sadrzi reklamu kojoj je dodeljen efekat po zelji</li>
+            <li>navigacioni blok ima 3 linka iz kombinacije koja vam je dodeljena.</li>
+            <li>sekcijski blok koji daje podatke o Vama (studentu) i popis zadataka koje ste radili</li>
+            <li>članak blok koji svakih 10 sekundi ispiše 1. od 5 umotvorina (po izboru)</li>
+            <li>footer blok koji sadrži podatke o zaštiti autorskih prava</li>
+            <li>Vraćanje na indeksnu stranicu je klikom na sliku "HOME" na datoj stranici. 
+                (bilo koja slika "home" sa interneta)</li>
+            <li>Potrudite se da projekat ima svoj (makar minimalni) vizuelni identitet.</li>
+            <hr>
+            <li>link ka audio sadržaju gde se bira muzika koja se sluša.</li>
+            <li>link ka stranici koja sadrži tabelu koja ima 5 atributa (kolona) i gde se može vršiti sortiranje redova po bilo kom atributu.</li>
+            <li> link ka igri "Asocijacije za 2 igrača" , igrači pogađaju rešenja četiri kolone sa po četiri asocijacije;</li>
+        </ul>
+    </section>
+
+    <article id="umotvorine">
+        <p id="tekstUmotvorina"></p>
+    </article>
+
+    <footer>
+        <div id="leviFoot">
+            <p>Nikola Dragutinović<br>NRT-79/21</p>
+        </div>
+
+        <div id="desniFoot">
+            <p>Copyright © 2023<br>Sva autorska prava su zadrzana.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        function promeniUmotvorine() {
+            var paragraf = document.getElementById("tekstUmotvorina");
+
+            var Umotvorine = [
+                "Bolje vrabac u ruci, nego golub na grani.",
+                "Ko voli da laze, i samom sebi veruje.",
+                "Ako je neko lud, ne budi mu drug.",
+                "U lazi su kratke noge.",
+                "Ko drugome jamu kopa, sam u nju upada."
+            ];
+
+            var upisaniTekst = paragraf.innerHTML;
+
+            var indeksUmotvorine = Umotvorine.indexOf(upisaniTekst);
+
+            if (indeksUmotvorine === Umotvorine.length - 1) {
+                paragraf.innerHTML = Umotvorine[0];
+            }
+            else {
+                paragraf.innerHTML = Umotvorine[indeksUmotvorine + 1];
+            }
+        }
+
+        window.onload = promeniUmotvorine;
+
+        setInterval(promeniUmotvorine, 10000);
+    </script>
+    </div>
+</body>
+</html>

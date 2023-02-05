@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/asocijacije.css">
+    <title>Asocijacije</title>
+</head>
+<body>
+    <div id="glavniDiv">
+        <div id="navigacija">
+            <a href="../html/index.html"><img src="../25694.png" id="home" alt="vracenje na pocetnu stranu"></a>
+        </div>
+
+    
+    <section id="sectigra">
+        <div class="razmak">
+            <div id="igrac1" class="Igraci">
+                <div class="Razmak">
+                    <h2 for="txtigrac1" id="txtig1">Prvi igrac: </h2>
+                </div>
+                <input type="text" id="odgovorIgrac1" name="txtigrac1">
+                <button id="dugmeigrac1" onclick="odgovori(1)">Odgovori</button>
+                <p id="poeniIgrac1">Poeni: 0</p>
+            </div>
+
+            <div id="igrac2" class="Igraci">
+                <div class="Razmak">
+                    <h2 for="txtigrac2" id="txtig2">Drugi igrac: </h2>
+                </div>
+                <input type="text" id="odgovorIgrac2" name="txtigrac2">
+                <button id="dugmeigrac2" onclick="odgovori(2)">Odgovori</button>
+                <p id="poeniIgrac2">Poeni: 0</p>
+            </div>
+       
+            <table id="tabelaAsocijacija">
+                <thead>
+                    <tr>
+                        <th id="th0" onclick="izaberiKolonu('A')">KOLONA A</th>
+                        <th id="th1" onclick="izaberiKolonu('B')">KOLONA B</th>
+                        <th id="th2" onclick="izaberiKolonu('C')">KOLONA C</th>
+                        <th id="th3" onclick="izaberiKolonu('D')">KOLONA D</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td onclick="prikaziAsocijaciju(0,0)">A1</td>
+                        <td onclick="prikaziAsocijaciju(0,1)">B1</td>
+                        <td onclick="prikaziAsocijaciju(0,2)">C1</td>
+                        <td onclick="prikaziAsocijaciju(0,3)">D1</td>
+                    </tr>
+                    <tr>
+                        <td onclick="prikaziAsocijaciju(1,0)">A2</td>
+                        <td onclick="prikaziAsocijaciju(1,1)">B2</td>
+                        <td onclick="prikaziAsocijaciju(1,2)">C2</td>
+                        <td onclick="prikaziAsocijaciju(1,3)">D2</td>
+                    </tr>
+                    <tr>
+                        <td onclick="prikaziAsocijaciju(2,0)">A3</td>
+                        <td onclick="prikaziAsocijaciju(2,1)">B3</td>
+                        <td onclick="prikaziAsocijaciju(2,2)">C3</td>
+                        <td onclick="prikaziAsocijaciju(2,3)">D3</td>
+                    </tr>
+                    <tr>
+                        <td onclick="prikaziAsocijaciju(3,0)">A4</td>
+                        <td onclick="prikaziAsocijaciju(3,1)">B4</td>
+                        <td onclick="prikaziAsocijaciju(3,2)">C4</td>
+                        <td onclick="prikaziAsocijaciju(3,3)">D4</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+    <script>
+        const asocijacije = [
+    {"col1": ["KAFA", "KOKICE", "DRZAVA", "SPRAVA"], 
+    "col2": ["HEMIJA", "TELEFON", "SPOJ", "SAOBRACAJ"], 
+    "col3": ["SEKCIJA", "PAUZA", "TRAGEDIJA", "KOMEDIJA"], 
+    "col4": ["KABL", "GLEDANJE", "SATELIT", "SERIJA"], 
+    "odgovor": ["APARAT", "VEZA", "DRAMA", "TELEVIZIJA"]}
+];
+
+var trenutniIgrac = 1;
+
+var poeniig1 = 0;
+var poeniig2 = 0;
+
+var brojTacnihodgovora = 0;
+var brojPreostalihpolja = 16;
+
+var nedozvoljeniklikCelija = false;
+var nedozvoljeniklikAsocijacije = false;
+var izabranaKolona;
+var prethodnaKolona;
+
+var ugasith0 = false;
+var ugasith1 = false;
+var ugasith2 = false;
+var ugasith3 = false;
+
+var th0, th1, th2, th3;
+
+th0 = document.getElementById("th0");
+th1 = document.getElementById("th1");
+th2 = document.getElementById("th2");
+th3 = document.getElementById("th3");
+
+var dugmePrvog = document.getElementById("dugmeigrac1");
+var dugmeDrugog = document.getElementById("dugmeigrac2");
+
+inputTextBoxPrvog = document.getElementById("odgovorIgrac1");
+inputTextBoxDrugog = document.getElementById("odgovorIgrac2");
+
+function nedozovljenoDugmeiTekstOdgovora() {
+    dugmePrvog.disabled = true;
+    dugmeDrugog.disabled = true;
+    inputTextBoxPrvog.disabled = true;
+    inputTextBoxDrugog.disabled = true;
+}
+
+function ugasiEfekatIzborKolone() {
+    th0.classList.add("ugasiEfekatIzboraOdgovora");
+    th1.classList.add("ugasiEfekatIzboraOdgovora");
+    th2.classList.add("ugasiEfekatIzboraOdgovora");
+    th3.classList.add("ugasiEfekatIzboraOdgovora");
+}
+
+function ukljuciEfekatIzborKolone() {
+    th0.classList.remove("ugasiEfekatIzboraOdgovora");
+    th1.classList.remove("ugasiEfekatIzboraOdgovora");
+    th2.classList.remove("ugasiEfekatIzboraOdgovora");
+    th3.classList.remove("ugasiEfekatIzboraOdgovora");
+}
+
+
+function prikaziAsocijaciju(idReda, idKolone) {
+    var tabela, red, celija;
+
+    if (nedozvoljeniklikCelija == false) {
+        tabela = document.getElementById("tabelaAsocijacija");
+
+        red = tabela.rows;
+        celija = red[idReda + 1].getElementsByTagName("TD")[idKolone];
+
+        if (celija.classList.contains("ugasi") == false) {
+            celija.classList.add("ugasi");
+
+            celija.innerHTML = asocijacije[0]['col' + (idKolone + 1)][idReda];
+
+            brojPreostalihpolja--;
+
+            nedozvoljeniklikCelija = true;
+            nedozvoljeniklikAsocijacije = false;
+            ukljuciEfekatIzborKolone();
+        }
+    }
+    else {
+        window.alert("Ovo polje je vec bilo otvoreno u vasem potezu!");
+    }
+}
+
+function izaberiKolonu(izbor) {
+    if (nedozvoljeniklikAsocijacije == false) {
+        izabranaKolona = null;
+
+        if (izbor == 'A' && ugasith0 == false) {
+            th0.style.backgroundColor = "blue";
+            izabranaKolona = 0;
+        }
+        else if (izbor == 'B' && ugasith1 == false) {
+            th1.style.backgroundColor = "blue";
+            izabranaKolona = 1;
+        }
+        else if (izbor == 'C' && ugasith2 == false) {
+            th2.style.backgroundColor = "blue";
+            izabranaKolona = 2;
+        }
+        else if (izbor == 'D' && ugasith3 == false) {
+            th3.style.backgroundColor = "blue";
+            izabranaKolona = 3;
+        }
+
+        if (izabranaKolona != null) {
+            if (prethodnaKolona != null) {
+                var idKoloneTabele = "th" + prethodnaKolona.toString();
+                document.getElementById(idKoloneTabele).style.backgroundColor = "yellow";
+            }
+
+            if (trenutniIgrac == 1) {
+                dugmePrvog.disabled = false;
+                inputTextBoxPrvog.disabled = false;
+            }
+            else if (trenutniIgrac == 2) {
+                dugmeDrugog.disabled = false;
+                inputTextBoxDrugog.disabled = false;
+            }
+         
+            prethodnaKolona = izabranaKolona;
+        }
+    }
+}
+
+function odgovori(igrac) {
+    var odgovor;
+
+    if (igrac == 1) {
+        odgovor = inputTextBoxPrvog.value;
+    }
+    else if (igrac == 2) {
+        odgovor = inputTextBoxDrugog.value;
+    }
+
+    console.log("Trenutni igrac je: ", trenutniIgrac);
+    if (odgovor.toLowerCase() == asocijacije[0].odgovor[izabranaKolona].toLowerCase()) {
+        if (trenutniIgrac == 1) {
+            poeniig1 = poeniig1 + 50;
+            bojaCelije(1);
+            prikaziPoljauKoloni(1);
+        }
+        else if (trenutniIgrac == 2) {
+            poeniig2 = poeniig2 + 50;
+            bojaCelije(2);
+            prikaziPoljauKoloni(2);
+        }
+
+        brojTacnihodgovora++;
+        prikaziOdgovoriZakljucajZaglavlje();
+
+        if (krajIgre() == 0) {
+            window.alert("Vas odgovor je tacan! \nSledeci igra igra!");
+        } else spremiPotez();
+    } 
+    else {
+        bojaCelije(0);
+        window.alert("Vas odgovor je netacan! \nSledeci igrac igra!");
+    }
+
+    if (igrac == 1)
+        trenutniIgrac = 2;
+    else if (igrac == 2)
+        trenutniIgrac = 1;
+
+    spremiPotez();
+}
+
+function spremiPotez() {
+    console.log("Broj preostalih polja je: ", brojPreostalihpolja);
+    ugasiEfekatIzborKolone();
+    nedozovljenoDugmeiTekstOdgovora();
+    nedozvoljeniklikCelija = false;
+    nedozvoljeniklikAsocijacije = true;
+    prethodnaKolona = null;
+
+    var tekstPoenaPrvog = document.getElementById("poeniIgrac1");
+    var tekstPoenaDrugog = document.getElementById("poeniIgrac2");
+
+    tekstPoenaPrvog.innerHTML = "Poeni: " + poeniig1.toString();
+    tekstPoenaDrugog.innerHTML = "Poeni: " + poeniig2.toString();
+
+    inputTextBoxPrvog.value = "";
+    inputTextBoxDrugog.value = "";
+
+    if (brojPreostalihpolja == 0) {
+        nedozvoljeniklikAsocijacije = false;
+        ukljuciEfekatIzborKolone();
+    }
+
+    prikaztrenutnogIgraca();
+}
+
+function prikaziOdgovoriZakljucajZaglavlje() {
+    var idKoloneZaglavlja = "th" + izabranaKolona.toString(); // za prikaz odgovora
+    odgovor = document.getElementById(idKoloneZaglavlja);
+
+    odgovor.innerHTML = asocijacije[0].odgovor[izabranaKolona];
+    odgovor.classList.add("ugasiOdgovor");
+
+    if (izabranaKolona == 0)
+        ugasith0 = true;
+    else if (izabranaKolona == 1)
+        ugasith1 = true;
+    else if (izabranaKolona == 2)
+        ugasith2 = true;
+    else if (izabranaKolona == 3)
+        ugasith3 = true;
+}
+
+function bojaCelije(slucaj) {
+    var idKoloneZaglavlja = "th" + izabranaKolona.toString(); // za prikaz odgovora
+    console.log('Za boju celije zaglavlja slucaj je: ', slucaj);
+
+    if (slucaj == 0) {
+        document.getElementById(idKoloneZaglavlja).style.backgroundColor = "green";
+    }
+    else if (slucaj == 1) {
+        document.getElementById(idKoloneZaglavlja).style.backgroundColor = "#ad712b";
+    }
+    else if (slucaj == 2) {
+        document.getElementById(idKoloneZaglavlja).style.backgroundColor = "#a97abf";
+    }
+}
+
+function prikaziPoljauKoloni(slucaj) {
+    var tabela, red, celija, i;
+    tabela = document.getElementById("tabelaAsocijacija");
+
+    red = tabela.rows;
+    for (i = 1; i < red.length; i++) {
+        celija = red[i].getElementsByTagName("TD")[izabranaKolona];
+
+        if (celija.innerHTML.length <= 2) {
+            brojPreostalihpolja--;
+        }
+
+        celija.innerHTML = asocijacije[0]['col' + (izabranaKolona + 1)][i - 1];
+        celija.classList.add("ugasi");
+
+        if (slucaj == 1) {
+            celija.style.backgroundColor = "#ad712b";
+        }
+        else if (slucaj == 2) {
+            celija.style.backgroundColor = "#a97abf";
+        }
+    }
+}
+
+function prikaztrenutnogIgraca() {
+    if (trenutniIgrac == 1) {
+        document.getElementById("txtig1").style.border = "1px solid red";
+    }
+    else if (trenutniIgrac == 2) {
+        document.getElementById("txtig2").style.border = "1px solid #537bb8";
+    }
+}
+
+function ucitavanje() {
+    ugasiEfekatIzborKolone();
+    nedozovljenoDugmeiTekstOdgovora();
+    prikaztrenutnogIgraca();
+}
+
+window.onload = ucitavanje();
+
+function krajIgre() {
+    if (brojTacnihodgovora == 4) {
+        if (poeniig1 > poeniig2)
+            window.alert("Prvi igrac je pobedio!");
+        else if (poeniig2 > poeniig1) 
+            window.alert("Drugi igrac je pobedio!");
+        else if (poeniig1 == poeniig2) 
+            window.alert("Rezultat je neresen!");
+
+        return 1;
+    } 
+    else {
+        return 0;
+    }
+}
+    </script>
+    </div>
+</body>
+</html>

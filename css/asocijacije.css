@@ -1,0 +1,141 @@
+body {
+    background: linear-gradient(120deg, #90EE90, #FFFFE0);
+    height: fit-content;
+    font-family:Arial, Helvetica, sans-serif;
+    font-style: normal;
+}
+
+#home {
+    width: 10%;
+    height: 10%;
+    display: block;
+    margin: auto;
+    border: none;
+}
+
+#glavniDiv {
+    margin: auto;
+    padding: 0px;
+    min-width: 500px;
+    max-width: 1000px;
+}
+
+#sectigra {
+    width: 100%;
+    height: 25rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 3rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: antiquewhite;
+}
+
+.razmak {
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+}
+
+.Igraci {
+    margin: 0;
+    padding: 0;
+    width: 45%;
+    margin-right: 0.2rem;
+    font-weight: bold;
+}
+
+.Igraci input {
+    width: 10rem;
+    height: 1rem;
+}
+
+#dugmeigrac1, #dugmeigrac2 {
+    height: 1.5rem;
+}
+
+.Igraci h2 {
+    width: max-content;
+    display: block;
+    margin: 0.3rem;
+    padding: 0.3rem;
+    border-radius: 5px;
+    text-shadow: 1.5px 1.5px rgba(0, 0, 0, 0.5);
+}
+
+.Razmak {
+    height: 2.5rem;
+    padding: 0.3rem 0;
+}
+ 
+#igrac1 {
+    text-align: left;
+}
+
+#igrac1 p {
+    color: lightblue;
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#igrac2 {
+    text-align: right;
+}
+
+#igrac2 h2 {
+    margin-left: auto;
+}
+
+#igrac2 p {
+    color: coral;
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#tabelaAsocijacija {
+    width: 100%;
+    background-color: antiquewhite;
+    color: black;
+    text-align: center;
+    margin: auto;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+th {
+    cursor: pointer;
+    height: 2.5rem;
+    border: 2px solid black;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+}
+
+th:hover {
+    box-shadow: inset 0 0 4px 4px blue;
+}
+
+td {
+    height: 2.5rem;
+    border: 1px solid black;
+    font-size: 20px;
+    color: black;
+}
+
+td:hover {
+    background-color: rgb(200, 235, 135);
+    cursor: pointer;
+}
+
+.ugasi {
+    pointer-events: none;
+    font-weight: bold;
+}
+
+.ugasiOdgovor {
+    pointer-events: none;
+}
+
+.ugasiEfekatSelekcijeOdgovora {
+    pointer-events: none;
+}

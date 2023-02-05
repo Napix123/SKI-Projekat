@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/muzika.css">
+    <script src="../js/jquery-3.6.3.js"></script>
+    <script src="../js/audio.js"></script>
+    <title>Audio Sadrzaj</title>
+    
+    <style>
+        #pesme {
+            list-style-type: none;
+        }
+
+        #pesme li a {
+            color: black;
+            text-decoration: none;
+        }
+
+        #pesme .trenutna-pesma a {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="glavniDiv">
+    <a href="../html/index.html"><img src="../25694.png" id="home" alt="vracenje na pocetnu stranu"></a>
+    <audio src="" controls id="audioPlayer"></audio>
+    <ul id="pesme">
+        <li class="trenutna-pesma"><a href="../pesme/Mr.Kitty - After Dark.mp3">Mr.Kitty - After Dark</a></li>
+        <li><a href="../pesme/Djordje Balasevic - Al_ se nekad dobro jelo - (Audio 1985) HD.mp3">Djordje Balasevic - Al se nekad dobro jelo</a></li>
+        <li><a href="../pesme/Eminem - Lose Yourself [HD].mp3">Eminem - Lose Yourself</a></li>
+    </ul>
+    <script>
+        audioPlayer();
+    </script>
+    </div>
+</body>
+</html>
